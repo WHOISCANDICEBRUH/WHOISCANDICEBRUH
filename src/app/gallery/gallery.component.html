@@ -1,0 +1,40 @@
+<section id="gallery">
+  <div class="container">
+    <div class="heading-title heading-line-single">
+      <h1>Gallery</h1>
+    </div>
+    <!-- FILTER -->
+    <ul class="nav nav-pills mix-filter mb-30">
+      <li class="filter"><a (click)="onFilterClick('')">All</a></li>
+      <li *ngFor="let _searchMenuItem of searchMenuItems; let lastSearchMenu = last" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{_searchMenuItem.title}}</a>
+        <ul class="dropdown-menu">
+          <li *ngFor="let _searchSubMenuItem of _searchMenuItem.subMenuItems; let lastSubMenuItem = last" class="filter dropdown-item">
+            <span *ngIf="lastSearchMenu && lastSubMenuItem" class="markLastMenuItem" style="display: none"></span>
+            <a data-toggle="tab" (click)="onFilterClick(_searchSubMenuItem.id)">{{_searchSubMenuItem.title}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!-- /FILTER -->
+		<div id="portfolio" class="portfolio">
+      <!-- Item List -->
+      <div class="row mix-grid">
+      </div>
+      <!-- Pagination Default -->
+      <ul class="pagination pagination-simple">
+        <li class="page-item">
+          <a class="page-link" (click)="previousPage()">&laquo;</a>
+        </li>
+        <li *ngFor="let pageIndex of pageNumbers" (click)="goToPage(pageIndex)"
+          [class]="currentPageNumber === pageIndex? 'page-item active' : 'page-item'">
+          <a class="page-link">{{pageIndex}}</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" (click)="nextPage()">&raquo;</a>
+        </li>
+      </ul>
+    </div>  
+  </div>
+	<div hidden id="gallerySearchLastItem"></div>
+</section>

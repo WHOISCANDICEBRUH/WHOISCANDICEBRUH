@@ -1,0 +1,291 @@
+<div *ngIf="dataInitialized" id="wrapper">
+
+    <!-- 
+      PAGE HEADER 
+      
+      CLASSES:
+        .page-header-xs	= 20px margins
+        .page-header-md	= 50px margins
+        .page-header-lg	= 80px margins
+        .page-header-xlg= 130px margins
+        .dark			= dark page header
+
+        .shadow-before-1 	= shadow 1 header top
+        .shadow-after-1 	= shadow 1 header bottom
+        .shadow-before-2 	= shadow 2 header top
+        .shadow-after-2 	= shadow 2 header bottom
+        .shadow-before-3 	= shadow 3 header top
+        .shadow-after-3 	= shadow 3 header bottom
+    -->
+    <!-- /PAGE HEADER -->
+
+			<!-- -->
+			<section>
+          <div class="container">
+
+            <header class="mb-60">
+              <h2>{{product.collection.description}} - {{product.name}}</h2>
+              <p class="lead font-lato">{{product.collection.description}}</p>
+            </header>
+  
+            <div class="row">
+            
+              <div class="col-md-5 col-sm-5">
+  
+                <div class="thumbnail">
+                  <!--
+                    IMAGE ZOOM 
+                    
+                    data-mode="mouseover|grab|click|toggle"
+                  -->
+                  <figure id="zoom-primary" class="zoom" data-mode="mouseover">
+                    <!-- 
+                      zoom buttton
+                      
+                      positions available:
+                        .bottom-right
+                        .bottom-left
+                        .top-right
+                        .top-left
+                    -->
+                    <a class="lightbox bottom-right" href="{{gallery[0].url}}" data-plugin-options='{"type":"image"}'>
+                      <i class="fa fa-search"></i>
+                    </a>
+  
+                    <!-- 
+                      image
+  
+                      Extra: add .image-bw class to force black and white!
+                    -->
+                    <img class="img-fluid" src="{{gallery[0].url}}" width="1200" height="1500" alt="" />
+                  </figure>
+  
+                </div>
+  
+                <!-- 
+                  Thumbnails (required height:100px) 
+                  
+                  data-for = figure image id match
+                -->
+                <div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false}'>
+                  <a *ngFor="let imageUrl of gallery; let lastThumbnailItem = last" class="thumbnail" href="{{imageUrl.url}}">
+                    <span *ngIf="lastThumbnailItem" class="markLastThumbnailItem" style="display: none"></span>
+                    <img src="{{imageUrl.thumbnailUrl}}" alt=""/>
+                  </a>
+                </div>
+                <!-- /Thumbnails -->
+  
+              </div>
+  
+              <div class="col-md-7 col-sm-7">
+                <div class="toggle toggle-transparent toggle-bordered-full">
+  
+                  <div *ngIf="product.discontinued" class="alert alert-danger"><strong>This product is discontinued.</strong></div>
+                  <div *ngIf="product.collection != null && product.collection.detailDescription !== ''" class="toggle">
+                    <label>Overview</label>
+                    <div class="toggle-content" [innerHtml]="product.collection.detailDescription">
+                    </div>
+                  </div>
+  
+                  <div class="toggle">
+                    <label>Specifications</label>
+                    <div class="toggle-content">
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <tbody>
+                            <tr>
+                              <td>Product Number</td>
+                              <td>{{product.productNumber}}</td>
+                            </tr>
+                            <tr *ngIf="product.structure != null && product.structure.description !== ''">
+                              <td>Structure</td>
+                              <td>{{product.structure && product.structure.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.species != null && product.species.description !==''">
+                              <td>Species</td>
+                              <td>{{product.species && product.species.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.width != null && product.width.description !==''">
+                              <td>Width</td>
+                              <td>{{product.width && product.width.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.thickness != null && product.thickness.description !==''">
+                              <td>Thickness</td>
+                              <td>{{product.thickness && product.thickness.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.coreThickness != null && product.coreThickness.description !==''">
+                              <td>Core Thickness</td>
+                              <td>{{product.coreThickness && product.coreThickness.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.ixpeBackingThickness != null && product.ixpeBackingThickness.description !==''">
+                              <td>IXPE Backing Thickness</td>
+                              <td>{{product.ixpeBackingThickness && product.ixpeBackingThickness.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.grade != null && product.grade.description !==''">
+                              <td>Grade</td>
+                              <td>{{product.grade && product.grade.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.wearLayer != null && product.wearLayer.description !==''">
+                              <td>Wear Layer</td>
+                              <td>{{product.wearLayer && product.wearLayer.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.length != null && product.length.description !==''">
+                              <td>Length</td>
+                              <td>{{product.length && product.length.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.hardness != null && product.hardness.description !== ''">
+                              <td>Hardness</td>
+                              <td>{{product.hardness && product.hardness.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.colorVariation != null && product.colorVariation.description !==''">
+                              <td>Color Variation</td>
+                              <td>{{product.colorVariation && product.colorVariation.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.cartonsPerPallet != null && product.cartonsPerPallet.description !==''">
+                              <td>Cartons per Pallet</td>
+                              <td>{{product.cartonsPerPallet && product.cartonsPerPallet.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.lbs != null && product.lbs.description !==''">
+                              <td>Lbs</td>
+                              <td>{{product.lbs && product.lbs.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.edgeTypes != null && product.edgeTypes.length > 0">
+                              <td>Edge Type</td>
+                              <td>{{buildListDescription(product.edgeTypes)}}</td>
+                            </tr>
+                            <tr *ngIf="product.finish != null && product.finish.description !==''">
+                              <td>Finish</td>
+                              <td>{{product.finish && product.finish.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.styles != null && product.styles.length > 0">
+                              <td>Styles</td>
+                              <td>{{buildListDescription(product.styles)}}</td>
+                            </tr>
+                            <tr *ngIf="product.treatments != null && product.treatments.length > 0">
+                              <td>Treatments</td>
+                              <td>{{buildListDescription(product.treatments)}}</td>
+                            </tr>
+                            <tr *ngIf="product.squareFeetPerBox != null && product.squareFeetPerBox.description !==''">
+                              <td>Square Feet per Box</td>
+                              <td>{{product.squareFeetPerBox && product.squareFeetPerBox.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.installationTypes != null && product.installationTypes.length > 0">
+                              <td>Installation Type</td>
+                              <td>{{buildListDescription(product.installationTypes)}}</td>
+                            </tr>
+                            <tr *ngIf="product.clickType != null && product.clickType.description !==''">
+                              <td>Click Type</td>
+                              <td>{{product.clickType && product.clickType.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.impactInsulationClass != null && product.impactInsulationClass.description !==''">
+                              <td>Impact Insulation Class</td>
+                              <td>{{product.impactInsulationClass && product.impactInsulationClass.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.impactSoundConductionType != null && product.impactSoundConductionType.description !==''">
+                              <td>Impact Sound Conduction</td>
+                              <td>{{product.impactSoundConductionType && product.impactSoundConductionType.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.airborneSoundConductionType != null && product.airborneSoundConductionType.description !==''">
+                              <td>Airborne Sound Conduction</td>
+                              <td>{{product.airborneSoundConductionType && product.airborneSoundConductionType.description}}</td>
+                            </tr>
+                            <tr *ngIf="product.warranties != null && product.warranties.length > 0">
+                              <td>Warranties</td>
+                              <td>{{buildListDescription(product.warranties)}}</td>
+                            </tr>
+                            <tr *ngIf="product.instructionsUrl != null && product.warranties.length > 0">
+                              <td>Installation Instructions</td>
+                              <td><a [href]="product.instructionsUrl"><i class="glyphicon glyphicon glyphicon-download-alt"></i></a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="product.squareFeetPerBox != null && product.squareFeetPerBox.description !==''" class="toggle">
+                    <label>Calculator</label>
+                    <div class="toggle-content">
+                      <div class="row">
+                        <div class="col-md-3" style="margin-bottom: 15px">Waste Factor (%):</div>
+                        <div class="col-md-3" style="margin-bottom: 15px"><input type="number" min="0" max="100" class="form-control" style="text-align: right;" [(ngModel)]="calculator.wasteFactor" (ngModelChange)="calChanged()"/></div>
+                        <div class="col-md-3" style="margin-bottom: 15px"></div>
+                        <div class="col-md-3" style="margin-bottom: 15px"><button type="button" class="btn btn-default btn-round btn-sm float-right" (click)="calculator.addRoom()">Add a Room</button></div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <tbody>
+                            <ng-container *ngFor="let room of calculator.rooms; index as i">
+                            <tr>
+                              <td colspan="3">
+                                <p class="float-left">Room {{i+1}}:</p>
+                                <button type="button" class="btn btn-default btn-round btn-sm float-right" (click)="calculator.removeRoom(i)">Remove Room</button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="number" min="0" class="form-control" placeholder="ft." style="text-align: right;" [(ngModel)]="room.lengthFeet" (ngModelChange)="calChanged()">
+                                <input type="number" min="0" max="12" class="form-control" placeholder="in." style="text-align: right;" [(ngModel)]="room.lengthInches" (ngModelChange)="calChanged()">
+                              </td>
+                              <td>x</td>
+                              <td>
+                                <input type="number" min="0" class="form-control" placeholder="ft." style="text-align: right;" [(ngModel)]="room.widthFeet" (ngModelChange)="calChanged()">
+                                <input type="number" min="0" max="12" class="form-control" placeholder="in." style="text-align: right;" [(ngModel)]="room.widthInches" (ngModelChange)="calChanged()">
+                              </td>
+                            </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-8" style="margin-bottom: 15px">
+                          <h4><span class="float-left">Total boxes needed:</span><span class="float-right">{{calculator.numberOfBoxes}}</span></h4>
+                        </div>
+                        <div class="col-md-8" style="margin-bottom: 15px">
+                          <p><span class="float-left">Sq Feet per Box:</span><span class="float-right">{{calculator.squareFeetPerBox}}</span></p>
+                        </div>
+                        <div class="col-md-8" style="margin-bottom: 15px">
+                          <p><span class="float-left">Total squre feet:</span><span class="float-right">{{calculator.totalArea}}</span></p>
+                        </div>
+                        <div class="col-md-8" style="margin-bottom: 15px">
+                          <p><span class="float-left">Wasted:</span><span class="float-right">{{calculator.totalWasted}}</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="toggle">
+                    <label>Interested?</label>
+                    <div class="toggle-content">
+                      <form class="sky-form clearfix" #emailForm="ngForm">
+                        <label class="input">
+                          <i class="ico-prepend fa fa-user"></i>
+                          <input type="text" placeholder="Name" [(ngModel)]="email.userName" name="userName" id="userName" [disabled]="emailingStatus !== 'newMail'" required>
+                        </label>
+                        <label class="input">
+                          <i class="ico-prepend fa fa-envelope"></i>
+                          <input type="text" placeholder="Email" [(ngModel)]="email.userAddress" name="userAddress" id="userAddress" [disabled]="emailingStatus !== 'newMail'"  required email>
+                        </label>
+                        <label class="textarea">
+                          <i class="ico-prepend fa fa-comment"></i>
+                          <textarea rows="3" placeholder="Type your question..." [(ngModel)]="email.body" name="body" id="body" [disabled]="emailingStatus !== 'newMail'"  required></textarea>
+                        </label>
+                        <button type="button" class="btn btn-primary btn-sm float-right" (click)="onSubmitEmail()" [disabled]="!emailForm.form.valid || emailingStatus === 'sending'" [hidden]="emailingStatus === 'sent'">SUBMIT YOUR QUESTION</button>
+                        <button type="button" class="btn btn-primary btn-sm float-right" (click)="onTrySendAgain()" [hidden]="!(emailingStatus === 'failed')">TRY AGAIN</button>
+                        <button type="button" class="btn btn-primary btn-sm float-right" (click)="onCreateNewEmail(); emailForm.reset();" [hidden]="emailingStatus !== 'sent'">Create another</button>
+                      </form>
+        
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+  
+            </div>
+  
+          </div>
+        </section>
+        <!-- / -->
+  
+  </div>
+  <!-- /wrapper -->

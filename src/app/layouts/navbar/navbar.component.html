@@ -1,0 +1,77 @@
+<!-- 
+    AVAILABLE HEADER CLASSES
+
+    Default nav height: 96px
+    .header-md 		= 70px nav height
+    .header-sm 		= 60px nav height
+
+    .b-0 		= remove bottom border (only with transparent use)
+    .transparent	= transparent header
+    .translucent	= translucent header
+    .sticky			= sticky header
+    .static			= static header
+    .dark			= dark header
+    .bottom			= header on bottom
+    
+    shadow-before-1 = shadow 1 header top
+    shadow-after-1 	= shadow 1 header bottom
+    shadow-before-2 = shadow 2 header top
+    shadow-after-2 	= shadow 2 header bottom
+    shadow-before-3 = shadow 3 header top
+    shadow-after-3 	= shadow 3 header bottom
+
+    .clearfix		= required for mobile menu, do not remove!
+
+    Example Usage:  class="clearfix sticky header-sm transparent b-0"
+-->
+<div id="header" class="navbar-toggleable-md sticky clearfix">
+
+    <!-- TOP NAV -->
+    <header id="topNav">
+        <div class="container">
+
+            <!-- Mobile Menu Button -->
+            <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+
+
+            <!-- Logo -->
+            <a class="logo float-left" href="index.html">
+                <img id="logoLight" src="/content/images/logo-light.png" alt="" /> <!-- light logo -->
+                <img id="logoDark" src="/content/images/logo-dark.png" alt="" /> <!-- dark logo -->
+            </a>
+
+            <!-- 
+                Top Nav 
+                
+                AVAILABLE CLASSES:
+                submenu-dark = dark sub menu
+            -->
+            <div class="navbar-collapse collapse float-right nav-main-collapse submenu-dark">
+                <nav class="nav-main">
+
+                    <!--
+                        NOTE
+                        
+                        For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
+                        Direct Link Example: 
+
+                        <li>
+                            <a href="#">HOME</a>
+                        </li>
+                    -->
+                    <ul id="topMain" class="nav nav-pills nav-main">
+                        <li *ngFor="let _menuItem of menuItems"> 
+                            <a *ngIf="!_menuItem.useScroll" href="{{_menuItem.url}}">{{_menuItem.title}}</a>
+                            <a *ngIf="_menuItem.useScroll" scrollTo="{{_menuItem.scrollTo}}">{{_menuItem.title}}</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </header>
+    <!-- /Top Nav -->
+
+</div>
